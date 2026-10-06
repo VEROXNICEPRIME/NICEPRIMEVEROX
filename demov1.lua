@@ -7,7 +7,68 @@ local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
 local CORRECT_KEY = "VEROXHUB_KEY128634"
 local ADMIN_NAME = "Monkeynicehihi"
 
--- PARENT AN TOÀN
+----------------------------------------------------
+-- 0. TẠO OVERHEAD TITLE TRÊN ĐẦU NHÂN VẬT
+----------------------------------------------------
+local function CreateOverhead(character)
+    local head = character:WaitForChild("Head", 5)
+    if not head then return end
+
+    if head:FindFirstChild("OverheadTitle") then
+        head.OverheadTitle:Destroy()
+    end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "OverheadTitle"
+    billboard.Adornee = head
+    billboard.Size = UDim2.new(0, 200, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, 2.8, 0)
+    billboard.AlwaysOnTop = true
+
+    local line1 = Instance.new("TextLabel")
+    line1.Size = UDim2.new(1, 0, 0.45, 0)
+    line1.Position = UDim2.new(0, 0, 0, 0)
+    line1.BackgroundTransparency = 1
+    line1.TextScaled = true
+    line1.Font = Enum.Font.GothamBold
+    line1.TextStrokeTransparency = 0
+    line1.Parent = billboard
+
+    local line2 = Instance.new("TextLabel")
+    line2.Size = UDim2.new(1, 0, 0.5, 0)
+    line2.Position = UDim2.new(0, 0, 0.45, 0)
+    line2.BackgroundTransparency = 1
+    line2.TextScaled = true
+    line2.Font = Enum.Font.GothamBold
+    line2.TextStrokeTransparency = 0
+    line2.Parent = billboard
+
+    if LocalPlayer.Name == ADMIN_NAME then
+        line1.Text = "BY: NICE PRIME"
+        line1.TextColor3 = Color3.fromRGB(255, 255, 255)
+        line2.Text = "ADMIN👑"
+        line2.TextColor3 = Color3.fromRGB(255, 200, 0)
+    else
+        line1.Text = "VEROX HUB"
+        line1.TextColor3 = Color3.fromRGB(200, 200, 200)
+        line2.Text = "MEMBER"
+        line2.TextColor3 = Color3.fromRGB(150, 150, 150)
+    end
+
+    billboard.Parent = head
+end
+
+if LocalPlayer.Character then
+    CreateOverhead(LocalPlayer.Character)
+end
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    CreateOverhead(char)
+end)
+
+----------------------------------------------------
+-- PARENT AN TOÀN & CLEAN UI CŨ
+----------------------------------------------------
 local function GetSafeParent()
     local target = nil
     if gethui then pcall(function() target = gethui() end) end
@@ -18,7 +79,6 @@ end
 
 local ParentGui = GetSafeParent()
 
--- DỌN UI CŨ
 for _, v in ipairs(ParentGui:GetChildren()) do
     if v.Name == "VeroxHubGui" then
         v:Destroy()
@@ -63,7 +123,6 @@ local UICornerKey = Instance.new("UICorner")
 UICornerKey.CornerRadius = UDim.new(0, 12)
 UICornerKey.Parent = KeyFrame
 
--- HÌNH NỀN KEY FRAME
 local KeyBGImage = Instance.new("ImageLabel")
 KeyBGImage.Size = UDim2.new(1, 0, 1, 0)
 KeyBGImage.BackgroundTransparency = 1
@@ -81,7 +140,6 @@ KeyDarkOverlay.BorderSizePixel = 0
 KeyDarkOverlay.ZIndex = 1
 KeyDarkOverlay.Parent = KeyFrame
 
--- TIÊU ĐỀ KEY
 local KeyTitle = Instance.new("TextLabel")
 KeyTitle.Size = UDim2.new(1, 0, 0, 40)
 KeyTitle.Position = UDim2.new(0, 0, 0, 10)
@@ -93,7 +151,6 @@ KeyTitle.Font = Enum.Font.GothamBold
 KeyTitle.ZIndex = 2
 KeyTitle.Parent = KeyFrame
 
--- KHUNG NHẬP KEY
 local KeyInput = Instance.new("TextBox")
 KeyInput.Size = UDim2.new(1, -40, 0, 38)
 KeyInput.Position = UDim2.new(0, 20, 0, 50)
@@ -113,7 +170,6 @@ local UICornerInput = Instance.new("UICorner")
 UICornerInput.CornerRadius = UDim.new(0, 8)
 UICornerInput.Parent = KeyInput
 
--- NÚT GET KEY & CHECK KEY
 local BtnGetKey = Instance.new("TextButton")
 BtnGetKey.Size = UDim2.new(0.43, 0, 0, 38)
 BtnGetKey.Position = UDim2.new(0, 20, 0, 98)
@@ -147,7 +203,6 @@ local UICornerCheck = Instance.new("UICorner")
 UICornerCheck.CornerRadius = UDim.new(0, 8)
 UICornerCheck.Parent = BtnCheckKey
 
--- NHÃN THÔNG BÁO TRẠNG THÁI KEY
 local KeyStatus = Instance.new("TextLabel")
 KeyStatus.Size = UDim2.new(1, -40, 0, 22)
 KeyStatus.Position = UDim2.new(0, 20, 0, 142)
@@ -159,7 +214,6 @@ KeyStatus.Font = Enum.Font.GothamMedium
 KeyStatus.ZIndex = 2
 KeyStatus.Parent = KeyFrame
 
--- THÔNG BÁO RESET KEY
 local KeyNote = Instance.new("TextLabel")
 KeyNote.Size = UDim2.new(1, -40, 0, 80)
 KeyNote.Position = UDim2.new(0, 20, 0, 170)
@@ -174,7 +228,7 @@ KeyNote.ZIndex = 2
 KeyNote.Parent = KeyFrame
 
 ----------------------------------------------------
--- 2. MAIN HUB FRAME (ẨN KHI CHƯA NHẬP KEY)
+-- 2. MAIN HUB FRAME
 ----------------------------------------------------
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
@@ -212,7 +266,6 @@ DarkOverlay.BorderSizePixel = 0
 DarkOverlay.ZIndex = 1
 DarkOverlay.Parent = MainFrame
 
--- NÚT TOGGLE BẬT TẮT MENU
 local ToggleBtn = Instance.new("ImageButton")
 ToggleBtn.Name = "VeroxToggle"
 ToggleBtn.Size = UDim2.new(0, 50, 0, 50)
@@ -233,7 +286,6 @@ ToggleBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- TOP HEADER BAR
 local Header = Instance.new("Frame")
 Header.Size = UDim2.new(1, 0, 0, 65)
 Header.BackgroundTransparency = 1
@@ -241,7 +293,6 @@ Header.BorderSizePixel = 0
 Header.ZIndex = 2
 Header.Parent = MainFrame
 
--- DÒNG NHÃN KIỂM TRA TÀI KHOẢN (ADMIN / DEV vs MEMBER)
 local RoleBadge = Instance.new("TextLabel")
 RoleBadge.Size = UDim2.new(1, -50, 0, 16)
 RoleBadge.Position = UDim2.new(0, 16, 0, 6)
@@ -305,7 +356,6 @@ CloseBtn.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
 
--- CONTAINER NỘI DUNG SCROLLABLE
 local ScrollContainer = Instance.new("ScrollingFrame")
 ScrollContainer.Size = UDim2.new(1, -24, 1, -78)
 ScrollContainer.Position = UDim2.new(0, 12, 0, 68)
@@ -318,7 +368,6 @@ ScrollContainer.AutomaticCanvasSize = Enum.AutomaticSize.Y
 ScrollContainer.ZIndex = 2
 ScrollContainer.Parent = MainFrame
 
--- HÀM TẠO NÚT THƯỜNG
 local function CreateButton(parent, text, color)
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, 0, 0, 38)
@@ -339,7 +388,7 @@ local function CreateButton(parent, text, color)
     return btn
 end
 
--- PAGE 1: DANH SÁCH GAME & FIX LAG
+-- PAGE 1
 local GamePage = Instance.new("Frame")
 GamePage.Name = "GamePage"
 GamePage.Size = UDim2.new(1, 0, 1, 0)
@@ -356,7 +405,7 @@ local BtnFixLag = CreateButton(GamePage, "⚡ FIX LAG (XÓA ĐỒ HỌA + SKIN)"
 local BtnFishingMaster = CreateButton(GamePage, "🎣 FISHING MASTER", Theme.Accent)
 local BtnStealEgg = CreateButton(GamePage, "🥚 STEAL AN EGG", Theme.Accent)
 
--- PAGE 2: FISHING MASTER CATEGORY
+-- PAGE 2
 local FishCategoryPage = Instance.new("Frame")
 FishCategoryPage.Size = UDim2.new(1, 0, 1, 0)
 FishCategoryPage.BackgroundTransparency = 1
@@ -373,7 +422,7 @@ local BackToGameBtn1 = CreateButton(FishCategoryPage, "⬅ Trở lại danh sác
 local BtnFishNoKeyOption = CreateButton(FishCategoryPage, "🔓 NO KEY", Theme.Accent)
 local BtnFishKeyOption = CreateButton(FishCategoryPage, "🔑 CÓ KEY", Theme.Text)
 
--- PAGE 3: STEAL AN EGG CATEGORY
+-- PAGE 3
 local EggCategoryPage = Instance.new("Frame")
 EggCategoryPage.Size = UDim2.new(1, 0, 1, 0)
 EggCategoryPage.BackgroundTransparency = 1
@@ -390,7 +439,7 @@ local BackToGameBtn2 = CreateButton(EggCategoryPage, "⬅ Trở lại danh sách
 local BtnEggNoKeyOption = CreateButton(EggCategoryPage, "🔓 NO KEY", Theme.Accent)
 local BtnEggKeyOption = CreateButton(EggCategoryPage, "🔑 CÓ KEY", Theme.Text)
 
--- PAGE 4: FISHING MASTER NO KEY
+-- PAGE 4
 local FishNoKeyPage = Instance.new("Frame")
 FishNoKeyPage.Size = UDim2.new(1, 0, 1, 0)
 FishNoKeyPage.BackgroundTransparency = 1
@@ -406,7 +455,7 @@ FishNoKeyList.Parent = FishNoKeyPage
 local BackToFishCat = CreateButton(FishNoKeyPage, "⬅ Trở lại (Fishing Master)", Theme.SubText)
 local BtnTocoHub = CreateButton(FishNoKeyPage, "⚡ TOCO HUB", Theme.Accent)
 
--- PAGE 5: FISHING MASTER CÓ KEY
+-- PAGE 5
 local FishKeyPage = Instance.new("Frame")
 FishKeyPage.Size = UDim2.new(1, 0, 1, 0)
 FishKeyPage.BackgroundTransparency = 1
@@ -421,7 +470,7 @@ FishKeyList.Parent = FishKeyPage
 
 local BackToFishCat2 = CreateButton(FishKeyPage, "⬅ Trở lại (Fishing Master)", Theme.SubText)
 
--- PAGE 6: STEAL AN EGG NO KEY
+-- PAGE 6
 local EggNoKeyPage = Instance.new("Frame")
 EggNoKeyPage.Size = UDim2.new(1, 0, 1, 0)
 EggNoKeyPage.BackgroundTransparency = 1
@@ -437,7 +486,7 @@ EggNoKeyList.Parent = EggNoKeyPage
 local BackToEggCat = CreateButton(EggNoKeyPage, "⬅ Trở lại (Steal An Egg)", Theme.SubText)
 local BtnChiilyHubV3 = CreateButton(EggNoKeyPage, "🌶️ CHIILY HUB V3", Theme.Accent)
 
--- PAGE 7: STEAL AN EGG CÓ KEY
+-- PAGE 7
 local EggKeyPage = Instance.new("Frame")
 EggKeyPage.Size = UDim2.new(1, 0, 1, 0)
 EggKeyPage.BackgroundTransparency = 1
@@ -455,8 +504,6 @@ local BackToEggCat2 = CreateButton(EggKeyPage, "⬅ Trở lại (Steal An Egg)",
 ----------------------------------------------------
 -- LOGIC SỰ KIỆN KEY SYSTEM
 ----------------------------------------------------
-
--- BẤM GET KEY
 BtnGetKey.MouseButton1Click:Connect(function()
     KeyInput.Text = CORRECT_KEY
     if setclipboard then
@@ -468,7 +515,6 @@ BtnGetKey.MouseButton1Click:Connect(function()
     KeyStatus.TextColor3 = Theme.Accent
 end)
 
--- BẤM XÁC NHẬN KEY
 BtnCheckKey.MouseButton1Click:Connect(function()
     if KeyInput.Text == CORRECT_KEY then
         KeyStatus.Text = "✓ Key chính xác! Đang mở Hub..."
@@ -484,74 +530,25 @@ BtnCheckKey.MouseButton1Click:Connect(function()
 end)
 
 ----------------------------------------------------
--- CHUYỂN TRANG LOGIC TRONG MENU
+-- LOGIC CHUYỂN TRANG
 ----------------------------------------------------
-BtnFishingMaster.MouseButton1Click:Connect(function()
-    GamePage.Visible = false
-    FishCategoryPage.Visible = true
-end)
+BtnFishingMaster.MouseButton1Click:Connect(function() GamePage.Visible = false; FishCategoryPage.Visible = true end)
+BtnStealEgg.MouseButton1Click:Connect(function() GamePage.Visible = false; EggCategoryPage.Visible = true end)
+BackToGameBtn1.MouseButton1Click:Connect(function() FishCategoryPage.Visible = false; GamePage.Visible = true end)
+BackToGameBtn2.MouseButton1Click:Connect(function() EggCategoryPage.Visible = false; GamePage.Visible = true end)
+BtnFishNoKeyOption.MouseButton1Click:Connect(function() FishCategoryPage.Visible = false; FishNoKeyPage.Visible = true end)
+BtnFishKeyOption.MouseButton1Click:Connect(function() FishCategoryPage.Visible = false; FishKeyPage.Visible = true end)
+BackToFishCat.MouseButton1Click:Connect(function() FishNoKeyPage.Visible = false; FishCategoryPage.Visible = true end)
+BackToFishCat2.MouseButton1Click:Connect(function() FishKeyPage.Visible = false; FishCategoryPage.Visible = true end)
+BtnEggNoKeyOption.MouseButton1Click:Connect(function() EggCategoryPage.Visible = false; EggNoKeyPage.Visible = true end)
+BtnEggKeyOption.MouseButton1Click:Connect(function() EggCategoryPage.Visible = false; EggKeyPage.Visible = true end)
+BackToEggCat.MouseButton1Click:Connect(function() EggNoKeyPage.Visible = false; EggCategoryPage.Visible = true end)
+BackToEggCat2.MouseButton1Click:Connect(function() EggKeyPage.Visible = false; EggCategoryPage.Visible = true end)
 
-BtnStealEgg.MouseButton1Click:Connect(function()
-    GamePage.Visible = false
-    EggCategoryPage.Visible = true
-end)
-
-BackToGameBtn1.MouseButton1Click:Connect(function()
-    FishCategoryPage.Visible = false
-    GamePage.Visible = true
-end)
-
-BackToGameBtn2.MouseButton1Click:Connect(function()
-    EggCategoryPage.Visible = false
-    GamePage.Visible = true
-end)
-
-BtnFishNoKeyOption.MouseButton1Click:Connect(function()
-    FishCategoryPage.Visible = false
-    FishNoKeyPage.Visible = true
-end)
-
-BtnFishKeyOption.MouseButton1Click:Connect(function()
-    FishCategoryPage.Visible = false
-    FishKeyPage.Visible = true
-end)
-
-BackToFishCat.MouseButton1Click:Connect(function()
-    FishNoKeyPage.Visible = false
-    FishCategoryPage.Visible = true
-end)
-
-BackToFishCat2.MouseButton1Click:Connect(function()
-    FishKeyPage.Visible = false
-    FishCategoryPage.Visible = true
-end)
-
-BtnEggNoKeyOption.MouseButton1Click:Connect(function()
-    EggCategoryPage.Visible = false
-    EggNoKeyPage.Visible = true
-end)
-
-BtnEggKeyOption.MouseButton1Click:Connect(function()
-    EggCategoryPage.Visible = false
-    EggKeyPage.Visible = true
-end)
-
-BackToEggCat.MouseButton1Click:Connect(function()
-    EggNoKeyPage.Visible = false
-    EggCategoryPage.Visible = true
-end)
-
-BackToEggCat2.MouseButton1Click:Connect(function()
-    EggKeyPage.Visible = false
-    EggCategoryPage.Visible = true
-end)
-
--- SCRIPT SCRIPTS
+-- RUN SCRIPTS
 BtnTocoHub.MouseButton1Click:Connect(function()
     BtnTocoHub.Text = "⏳ ĐANG KHỞI CHẠY..."
-    pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Tocolate1111111/fishingmaster/refs/heads/main/tocohub.lua"))()
-    end)
+    pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Tocolate1111111/fishingmaster/refs/heads/main/tocohub.lua"))() end)
     task.wait(1)
     BtnTocoHub.Text = "✓ ĐÃ BẬT TOCO HUB"
     task.wait(2)
@@ -560,9 +557,7 @@ end)
 
 BtnChiilyHubV3.MouseButton1Click:Connect(function()
     BtnChiilyHubV3.Text = "⏳ ĐANG KHỞI CHẠY..."
-    pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/khauow386-dot/Kha-hup-rayfi/refs/heads/main/Chilihupv3"))()
-    end)
+    pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/khauow386-dot/Kha-hup-rayfi/refs/heads/main/Chilihupv3"))() end)
     task.wait(1)
     BtnChiilyHubV3.Text = "✓ ĐÃ BẬT CHIILY HUB V3"
     task.wait(2)
@@ -576,11 +571,8 @@ BtnFixLag.MouseButton1Click:Connect(function()
         Lighting.GlobalShadows = false
         Lighting.FogEnd = 9e9
         for _, v in ipairs(Lighting:GetChildren()) do
-            if v:IsA("PostEffect") or v:IsA("Atmosphere") or v:IsA("Sky") then
-                v:Destroy()
-            end
+            if v:IsA("PostEffect") or v:IsA("Atmosphere") or v:IsA("Sky") then v:Destroy() end
         end
-
         for _, obj in ipairs(game:GetDescendants()) do
             if obj:IsA("BasePart") then
                 obj.Material = Enum.Material.SmoothPlastic
@@ -592,7 +584,6 @@ BtnFixLag.MouseButton1Click:Connect(function()
                 obj.Enabled = false
             end
         end
-
         local function RemoveSkins(char)
             for _, item in ipairs(char:GetChildren()) do
                 if item:IsA("Clothing") or item:IsA("ShirtGraphic") or item:IsA("Accessory") or item:IsA("CharacterMesh") then
@@ -600,17 +591,14 @@ BtnFixLag.MouseButton1Click:Connect(function()
                 end
             end
         end
-
         for _, plr in ipairs(Players:GetPlayers()) do
-            if plr.Character then
-                RemoveSkins(plr.Character)
-            end
+            if plr.Character then RemoveSkins(plr.Character) end
             plr.CharacterAdded:Connect(RemoveSkins)
         end
     end)
-
     task.wait(1)
     BtnFixLag.Text = "✓ ĐÃ FIX LAG THÀNH CÔNG"
     task.wait(2)
     BtnFixLag.Text = "⚡ FIX LAG (XÓA ĐỒ HỌA + SKIN)"
 end)
+
