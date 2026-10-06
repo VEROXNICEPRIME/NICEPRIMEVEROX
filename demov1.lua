@@ -485,6 +485,8 @@ EggNoKeyList.Parent = EggNoKeyPage
 
 local BackToEggCat = CreateButton(EggNoKeyPage, "⬅ Trở lại (Steal An Egg)", Theme.SubText)
 local BtnChiilyHubV3 = CreateButton(EggNoKeyPage, "🌶️ CHIILY HUB V3", Theme.Accent)
+local BtnMirandaHub = CreateButton(EggNoKeyPage, "🍊 MIRANDA HUB", Theme.Accent)
+local BtnCloutHub = CreateButton(EggNoKeyPage, "☁️ CLOUT HUB", Theme.Accent)
 
 -- PAGE 7
 local EggKeyPage = Instance.new("Frame")
@@ -564,6 +566,24 @@ BtnChiilyHubV3.MouseButton1Click:Connect(function()
     BtnChiilyHubV3.Text = "🌶 CHIILY HUB V3"
 end)
 
+BtnMirandaHub.MouseButton1Click:Connect(function()
+    BtnMirandaHub.Text = "⏳ ĐANG KHỞI CHẠY..."
+    pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/kadit9999/stealanegg/refs/heads/main/Miranda.lua"))() end)
+    task.wait(1)
+    BtnMirandaHub.Text = "✓ ĐÃ BẬT MIRANDA HUB"
+    task.wait(2)
+    BtnMirandaHub.Text = "🍊 MIRANDA HUB"
+end)
+
+BtnCloutHub.MouseButton1Click:Connect(function()
+    BtnCloutHub.Text = "⏳ ĐANG KHỞI CHẠY..."
+    pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/ClouthubOnTop/Loader/main/main.lua"))() end)
+    task.wait(1)
+    BtnCloutHub.Text = "✓ ĐÃ BẬT CLOUT HUB"
+    task.wait(2)
+    BtnCloutHub.Text = "☁️ CLOUT HUB"
+end)
+
 -- FIX LAG
 BtnFixLag.MouseButton1Click:Connect(function()
     BtnFixLag.Text = "⏳ ĐANG FIX LAG..."
@@ -601,3 +621,4 @@ BtnFixLag.MouseButton1Click:Connect(function()
     task.wait(2)
     BtnFixLag.Text = "⚡ FIX LAG (XÓA ĐỒ HỌA + SKIN)"
 end)
+
