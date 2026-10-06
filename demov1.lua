@@ -3,8 +3,9 @@ local CoreGui = game:GetService("CoreGui")
 local Lighting = game:GetService("Lighting")
 local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
 
--- CẤU HÌNH KEY
+-- CẤU HÌNH KEY & ADMIN
 local CORRECT_KEY = "VEROXHUB_KEY128634"
+local ADMIN_NAME = "Monkeynicehihi"
 
 -- PARENT AN TOÀN
 local function GetSafeParent()
@@ -32,7 +33,9 @@ local Theme = {
     Text = Color3.fromRGB(255, 255, 255),
     SubText = Color3.fromRGB(200, 210, 225),
     Close = Color3.fromRGB(255, 75, 75),
-    Warning = Color3.fromRGB(255, 170, 0)
+    Warning = Color3.fromRGB(255, 170, 0),
+    Admin = Color3.fromRGB(0, 255, 150),
+    Member = Color3.fromRGB(170, 170, 170)
 }
 
 -- SCREEN GUI
@@ -156,7 +159,7 @@ KeyStatus.Font = Enum.Font.GothamMedium
 KeyStatus.ZIndex = 2
 KeyStatus.Parent = KeyFrame
 
--- THÔNG BÁO RESET KEY (ĐÃ CẬP NHẬT MỚI)
+-- THÔNG BÁO RESET KEY
 local KeyNote = Instance.new("TextLabel")
 KeyNote.Size = UDim2.new(1, -40, 0, 80)
 KeyNote.Position = UDim2.new(0, 20, 0, 170)
@@ -175,8 +178,8 @@ KeyNote.Parent = KeyFrame
 ----------------------------------------------------
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 420, 0, 320)
-MainFrame.Position = UDim2.new(0.5, -210, 0.5, -160)
+MainFrame.Size = UDim2.new(0, 420, 0, 340)
+MainFrame.Position = UDim2.new(0.5, -210, 0.5, -170)
 MainFrame.BackgroundColor3 = Theme.Background
 MainFrame.BackgroundTransparency = 1
 MainFrame.BorderSizePixel = 0
@@ -232,15 +235,34 @@ end)
 
 -- TOP HEADER BAR
 local Header = Instance.new("Frame")
-Header.Size = UDim2.new(1, 0, 0, 50)
+Header.Size = UDim2.new(1, 0, 0, 65)
 Header.BackgroundTransparency = 1
 Header.BorderSizePixel = 0
 Header.ZIndex = 2
 Header.Parent = MainFrame
 
+-- DÒNG NHÃN KIỂM TRA TÀI KHOẢN (ADMIN / DEV vs MEMBER)
+local RoleBadge = Instance.new("TextLabel")
+RoleBadge.Size = UDim2.new(1, -50, 0, 16)
+RoleBadge.Position = UDim2.new(0, 16, 0, 6)
+RoleBadge.BackgroundTransparency = 1
+RoleBadge.Font = Enum.Font.GothamBold
+RoleBadge.TextSize = 11
+RoleBadge.TextXAlignment = Enum.TextXAlignment.Left
+RoleBadge.ZIndex = 2
+RoleBadge.Parent = Header
+
+if LocalPlayer.Name == ADMIN_NAME then
+    RoleBadge.Text = "👑 ROLE: ADMIN/DEV"
+    RoleBadge.TextColor3 = Theme.Admin
+else
+    RoleBadge.Text = "👤 ROLE: MEMBER"
+    RoleBadge.TextColor3 = Theme.Member
+end
+
 local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Size = UDim2.new(1, -50, 0, 24)
-TitleLabel.Position = UDim2.new(0, 16, 0, 8)
+TitleLabel.Size = UDim2.new(1, -50, 0, 22)
+TitleLabel.Position = UDim2.new(0, 16, 0, 22)
 TitleLabel.BackgroundTransparency = 1
 TitleLabel.TextColor3 = Theme.Text
 TitleLabel.TextSize = 16
@@ -252,7 +274,7 @@ TitleLabel.Parent = Header
 
 local VersionLabel = Instance.new("TextLabel")
 VersionLabel.Size = UDim2.new(1, -50, 0, 14)
-VersionLabel.Position = UDim2.new(0, 16, 0, 30)
+VersionLabel.Position = UDim2.new(0, 16, 0, 44)
 VersionLabel.BackgroundTransparency = 1
 VersionLabel.TextColor3 = Theme.SubText
 VersionLabel.TextSize = 10
@@ -285,8 +307,8 @@ end)
 
 -- CONTAINER NỘI DUNG SCROLLABLE
 local ScrollContainer = Instance.new("ScrollingFrame")
-ScrollContainer.Size = UDim2.new(1, -24, 1, -62)
-ScrollContainer.Position = UDim2.new(0, 12, 0, 52)
+ScrollContainer.Size = UDim2.new(1, -24, 1, -78)
+ScrollContainer.Position = UDim2.new(0, 12, 0, 68)
 ScrollContainer.BackgroundTransparency = 1
 ScrollContainer.BorderSizePixel = 0
 ScrollContainer.ScrollBarThickness = 3
