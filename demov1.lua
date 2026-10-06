@@ -293,22 +293,22 @@ Header.BorderSizePixel = 0
 Header.ZIndex = 2
 Header.Parent = MainFrame
 
-local RoleBadge = Instance.new("TextLabel")
-RoleBadge.Size = UDim2.new(1, -50, 0, 16)
-RoleBadge.Position = UDim2.new(0, 16, 0, 6)
-RoleBadge.BackgroundTransparency = 1
-RoleBadge.Font = Enum.Font.GothamBold
-RoleBadge.TextSize = 11
-RoleBadge.TextXAlignment = Enum.TextXAlignment.Left
-RoleBadge.ZIndex = 2
-RoleBadge.Parent = Header
+local TileBadge = Instance.new("TextLabel")
+TileBadge.Size = UDim2.new(1, -50, 0, 16)
+TileBadge.Position = UDim2.new(0, 16, 0, 6)
+TileBadge.BackgroundTransparency = 1
+TileBadge.Font = Enum.Font.GothamBold
+TileBadge.TextSize = 11
+TileBadge.TextXAlignment = Enum.TextXAlignment.Left
+TileBadge.ZIndex = 2
+TileBadge.Parent = Header
 
 if LocalPlayer.Name == ADMIN_NAME then
-    RoleBadge.Text = "👑 ROLE: ADMIN/DEV"
-    RoleBadge.TextColor3 = Theme.Admin
+    TileBadge.Text = "👑 TILE: ADMIN/DEV"
+    TileBadge.TextColor3 = Theme.Admin
 else
-    RoleBadge.Text = "👤 ROLE: MEMBER"
-    RoleBadge.TextColor3 = Theme.Member
+    TileBadge.Text = "👤 TILE: MEMBER"
+    TileBadge.TextColor3 = Theme.Member
 end
 
 local TitleLabel = Instance.new("TextLabel")
@@ -601,4 +601,3 @@ BtnFixLag.MouseButton1Click:Connect(function()
     task.wait(2)
     BtnFixLag.Text = "⚡ FIX LAG (XÓA ĐỒ HỌA + SKIN)"
 end)
-
