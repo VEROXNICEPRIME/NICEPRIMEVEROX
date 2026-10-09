@@ -6,8 +6,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Stats = game:GetService("Stats")
 local LocalPlayer = Players.LocalPlayer or Players.PlayerAdded:Wait()
 
--- CẤU HÌNH KEY & ADMIN & HÌNH NỀN
-local CORRECT_KEY = "VEROXHUB_FREEKEY9736"
+-- CẤU HÌNH KEY MỚI & ADMIN & HÌNH NỀN
+local CORRECT_KEY = "VEROXHUB_FREEKEY!"
 local ADMIN_NAME = "Monkeynicehihi"
 local BACKGROUND_IMAGE_ID = "rbxassetid://137468238820595"
 
@@ -136,7 +136,7 @@ ScreenGui.DisplayOrder = 999999
 ScreenGui.Parent = ParentGui
 
 ----------------------------------------------------
--- DỮ LIỆU NGÔN NGỮ (CẬP NHẬT FREE ĐẾN NGÀY 20)
+-- DỮ LIỆU NGÔN NGỮ
 ----------------------------------------------------
 local Translations = {
     VI = {
@@ -1273,7 +1273,7 @@ BtnLangVI.MouseButton1Click:Connect(function() UpdateLanguage("VI") end)
 BtnLangEN.MouseButton1Click:Connect(function() UpdateLanguage("EN") end)
 
 ----------------------------------------------------
--- LOGIC SỰ KIỆN KEY SYSTEM
+-- LOGIC SỰ KIỆN KEY SYSTEM (SỬA LỖI KIỂM TRA KEY)
 ----------------------------------------------------
 local function OpenMainHub()
     KeyFrame:Destroy()
@@ -1293,7 +1293,7 @@ BtnGetKey.MouseButton1Click:Connect(function()
 end)
 
 BtnCheckKey.MouseButton1Click:Connect(function()
-    local enteredKey = string.match(KeyInput.Text, "^%s*(.-)%s*$")
+    local enteredKey = KeyInput.Text:gsub("%s+", "") -- LOẠI BỎ TOÀN BỘ KHOẢNG TRẮNG DỪA
     
     if enteredKey == CORRECT_KEY then
         KeyStatus.Text = Translations[CurrentLang].KeySuccess
@@ -1305,5 +1305,6 @@ BtnCheckKey.MouseButton1Click:Connect(function()
         KeyStatus.TextColor3 = Theme.Close
     end
 end)
+
 
 
